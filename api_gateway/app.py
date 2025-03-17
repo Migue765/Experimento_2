@@ -4,8 +4,8 @@ import requests
 app = Flask(__name__)
 
 SERVICES = {
-    "rutas": "http://gestion_rutas:5000",
-    "login": "http://login:3033",
+    "rutas": "http://gestion_rutas:4043",
+    "login": "http://login:5000",
 }
 
 @app.route("/ping", methods=["GET"])
@@ -29,7 +29,7 @@ def proxy(servicio, endpoint):
         return jsonify({"error": "No autorizado"}), 403
 
     if servicio not in SERVICES:
-        return jsonify({"error": "Servicio no encontrado"}), 404
+        return jsonify({"error": "Servicio no encontrado: " + servicio}), 404
 
     url = f"{SERVICES[servicio]}/{endpoint}"
     if request.method == "POST":
