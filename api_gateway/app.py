@@ -8,6 +8,7 @@ SERVICES = {
     "login": "http://login:5000",
 }
 
+
 @app.route("/ping", methods=["GET"])
 def ping():
     return jsonify({"mensaje": "Pong!"}), 200
@@ -22,7 +23,6 @@ def proxy(servicio, endpoint):
         url = f"{SERVICES[servicio]}/{endpoint}"
         response = requests.post(url, json=request.json)
         return jsonify(response.json()), response.status_code
-
 
     validation_response = requests.post(f"{SERVICES['login']}/validate_token", headers={"Authorization": token})
     print(validation_response)
@@ -45,8 +45,9 @@ def proxy(servicio, endpoint):
         response = requests.delete(url, json=request.json)
     else:  # GETs
         response = requests.get(url, params=request.args)
-    
+
     return jsonify(response.json()), response.status_code
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8020)
