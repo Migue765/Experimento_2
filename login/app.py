@@ -18,10 +18,12 @@ def generate_token():
 
 @app.route('/validate_token', methods=['POST'])
 def validate_token():
-    token = request.get_json().get('token')
+    token = request.headers.get("Authorization")
     try:
         jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
-        return jsonify({'valid': True})
+        decoded_token = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+        admin_status = decoded_token.get('admin', False)
+        return jsonify({'valid': True, 'admin': admin_status})
     except jwt.ExpiredSignatureError:
         return jsonify({'valid': False, 'error': 'Token expired'})
     except jwt.InvalidTokenError:
