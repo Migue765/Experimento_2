@@ -8,6 +8,7 @@ app = Flask(__name__)
 # Almacenar respuestas recibidas
 respuestas_recibidas = []
 
+
 # Conectar a RabbitMQ
 def conectar_rabbitmq():
     try:
@@ -19,9 +20,11 @@ def conectar_rabbitmq():
         print(f"❌ Error conectando a RabbitMQ: {e}")
         return None, None
 
+
 @app.route("/ping", methods=["GET"])
 def ping():
     return jsonify({"mensaje": "Pong!"}), 200
+
 
 @app.route("/validar-pedido", methods=["POST"])
 def validar_pedido():
@@ -46,9 +49,11 @@ def validar_pedido():
 
     return jsonify({"mensaje": "Pedido enviado para validación"}), 202
 
+
 @app.route("/respuestas", methods=["GET"])
 def obtener_respuestas():
     return jsonify(respuestas_recibidas), 200
+
 
 # Worker para recibir respuestas
 def recibir_respuesta():
@@ -65,6 +70,7 @@ def recibir_respuesta():
     channel.basic_consume(queue="monitor_pedidos", on_message_callback=callback, auto_ack=True)
     print("🚀 Esperando respuestas de pedidos...")
     channel.start_consuming()
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5003)
