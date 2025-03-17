@@ -4,8 +4,8 @@ import requests
 app = Flask(__name__)
 
 SERVICES = {
-    "rutas": "http://gestion_rutas:5000",
-    "login": "http://login:3033",
+    "rutas": "http://gestion_rutas:4043",
+    "login": "http://login:5000",
 }
 
 @app.route("/ping", methods=["GET"])

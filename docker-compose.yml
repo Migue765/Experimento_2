@@ -25,7 +25,7 @@ services:
   rutas:
     image: rutas_image
     build:
-      context: ./rutas
+      context: ./gestion_rutas
       dockerfile: Dockerfile
     ports:
       - "4043:4043"
