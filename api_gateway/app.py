@@ -29,7 +29,7 @@ def proxy(servicio, endpoint):
         return jsonify({"error": "No autorizado"}), 403
 
     if servicio not in SERVICES:
-        return jsonify({"error": "Servicio no encontrado"}), 404
+        return jsonify({"error": "Servicio no encontrado: " + servicio}), 404
 
     url = f"{SERVICES[servicio]}/{endpoint}"
     if request.method == "POST":

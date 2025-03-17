@@ -10,22 +10,22 @@ services:
       - "8020:8020"
     depends_on:
       - login
-      - gestion_rutas
+      - rutas
 
   login:
-    image: gestion_pedidos_image
+    image: login_image
     build:
-      context: ./gestion_pedidos
+      context: ./login
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
       - DATABASE_HOST=sqlite:///pedidos.db
 
-  gestion_rutas:
-    image: gestion_inventarios_image
+  rutas:
+    image: rutas_image
     build:
-      context: ./gestion_inventarios
+      context: ./rutas
       dockerfile: Dockerfile
     ports:
       - "4043:4043"
