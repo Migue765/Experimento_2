@@ -19,8 +19,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5020:5020"
-    environment:
-      - DATABASE_HOST=sqlite:///pedidos.db
 
   rutas:
     image: rutas_image
